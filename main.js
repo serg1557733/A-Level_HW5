@@ -32,7 +32,7 @@ function getCity() {
  		console.log(arrayFromObj);
 
 }
-//getCity.call(citiesAndCountries);
+getCity.call(citiesAndCountries);
 
 
 
@@ -93,7 +93,7 @@ console.log(getNameOfDay('ru', 3)) // 'Среда'
 setProto(person1, person);
 // Теперь прототипом для объекта person1 выступает объект person */
 
-function setProto (currentObj, protoObj) {
+/* function setProto (currentObj, protoObj) {
 	Object.setPrototypeOf(currentObj, protoObj);
 }
 const person = {
@@ -108,7 +108,7 @@ setProto(person1, person);
 
 console.log(person1.__proto__);//depricated
 
-console.log(Object.getPrototypeOf(person1) );
+console.log(Object.getPrototypeOf(person1)); */
 
 
 /* Создать базовый объек person. 
@@ -138,3 +138,35 @@ person1.setAge(20); // передать возраст можно как уго�
 person1.getAge(); // Новое значение - 20 */
 
 
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+
+    this.setName = function (name) {
+        this.name = name;
+    };
+	this.setAge = function (age) {
+        this.age = age;
+    };
+	this.getAge = function () {
+        return this.age;
+    };
+	this.getName = function () {
+        return this.name;
+    };
+} 
+
+let person1 = new Person();
+
+person1.setName('serg'); // установили новое имя
+console.log(person1.getName()); // имя
+
+person1.setAge(36); // установили возраст
+console.log(person1.getAge()); // получили возраст
+
+person1.setAge(20); // передать возраст можно как угодно
+console.log(person1.getAge());
+
+
+person1.setAge(1); // передать возраст можно как угодно
+person1.getAge(); // 'Validation Error'
