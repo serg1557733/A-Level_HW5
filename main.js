@@ -19,18 +19,11 @@ const citiesAndCountries = {
 };
 
 function getCity() {
-	let arrayFromObj = Object.entries(this)
-	.flat()
-	.map((item, index) => {
-		if (index % 2){
-			return `- это ${item}`
-		} else {	
-			return item;
-		}
-	})
-
- 		console.log(arrayFromObj);
-
+	console.log(this);
+	
+	let arrayFromObj = [];
+	arrayFromObj.fill(Object.entries(this));
+	console.log(arrayFromObj);
 }
 getCity.call(citiesAndCountries);
 
@@ -71,20 +64,18 @@ getNameOfDay('ru', 3) // 'Среда' */
 
 const namesOfDays = {
     ru: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница' , 'Суббота', 'Воскресенье'],
+	ua: ['Понелеедельник', 'Втоенлелрник', 'Среенленда', 'Чеенлтверг', 'Пятненлица' , 'Суббенлота', 'Воселенкресенье'],
     en: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' , 'Saturday', 'Sunday'],
 	}
 
 
 function getNameOfDay(lang, datNumber){
-		if (lang == 'ru' && datNumber) {
-			return namesOfDays.ru[datNumber - 1];
-		} else {
-			return namesOfDays.en[datNumber - 1];
-		}
-    
+		if (lang && datNumber > 0 && datNumber < 8) {
+			return namesOfDays[lang][--datNumber];
+		} else  console.log('Incodecrt data');
 }
 
-console.log(getNameOfDay('en', 1)); 
+console.log(getNameOfDay('ua', 7)); 
 console.log(getNameOfDay('ru', 3)) // 'Среда'
 
 /* Написать универсальную функцию setProto, которая принимает в себя 2 аргумента (currentObj, protoObj). 
@@ -93,22 +84,21 @@ console.log(getNameOfDay('ru', 3)) // 'Среда'
 setProto(person1, person);
 // Теперь прототипом для объекта person1 выступает объект person */
 
-/* function setProto (currentObj, protoObj) {
+function setProto (currentObj, protoObj) {
 	Object.setPrototypeOf(currentObj, protoObj);
 }
-const person = {
+const person11 = {
     name: 'Vlad'
 };
 
-const person1 = {
+const person111 = {
     age: 1
 };
 
-setProto(person1, person);
+setProto(person111, person11);
 
-console.log(person1.__proto__);//depricated
-
-console.log(Object.getPrototypeOf(person1)); */
+console.log(person111.__proto__);//depricated
+console.log(Object.getPrototypeOf(person111));
 
 
 /* Создать базовый объек person. 
@@ -139,21 +129,35 @@ person1.getAge(); // Новое значение - 20 */
 
 
 function Person(name, age) {
-    this.name = name;
-    this.age = age;
+
+	this.age = 0;
+	this.name = name;
 
     this.setName = function (name) {
         this.name = name;
     };
+
 	this.setAge = function (age) {
-        this.age = age;
+		if (ageValidation(age)){
+		return this.age = age;
+		} else {
+			console.log('Validation Error');
+		}	
     };
+
 	this.getAge = function () {
-        return this.age;
+			return this.age;
+        
     };
+
 	this.getName = function () {
-        return this.name;
+       return this.name;
     };
+
+	ageValidation = function (age) {
+		return (age > 18) ;	
+	};
+	
 } 
 
 let person1 = new Person();
@@ -164,9 +168,10 @@ console.log(person1.getName()); // имя
 person1.setAge(36); // установили возраст
 console.log(person1.getAge()); // получили возраст
 
-person1.setAge(20); // передать возраст можно как угодно
+person1.setAge(42); // передать возраст можно как угодно
 console.log(person1.getAge());
 
 
 person1.setAge(1); // передать возраст можно как угодно
 person1.getAge(); // 'Validation Error'
+
