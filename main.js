@@ -19,13 +19,11 @@ const citiesAndCountries = {
 };
 
 function getCity() {
-	console.log(this);
-	
-	let arrayFromObj = [];
-	arrayFromObj.fill(Object.entries(this));
-	console.log(arrayFromObj);
+	return Object.keys(this).map((item,i) => `${item} - это ${Object.values(this)[i]}`);
 }
-getCity.call(citiesAndCountries);
+
+const result = getCity.call(citiesAndCountries);
+console.log(result);
 
 
 
